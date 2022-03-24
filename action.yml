@@ -1,0 +1,50 @@
+name: 'vanagon_snyk_scan_action'
+description: 'Scans vanagon builds for ruby dependencies and untrusted repos'
+inputs:
+  snykToken:
+    description: 'snyk access token'
+    required: true
+  snykOrg:
+    description: 'snyk org to write results to'
+    required: true
+  branch:
+    description: 'branch name to prepend to the snyk project name'
+    required: false
+  noMonitor:
+    description: 'allows skipping the snyk monitor step'
+    required: false
+  skipProjects:
+    description: 'A comma separated list of projects to skip'
+    required: false
+  skipPlatforms:
+    description: 'A comma separated list of platforms to skip'
+    required: false
+  urlsToReplace:
+    description: 'URLs to replace in a key value format <domain>,<format>. Example: foo.example.com,%s/foo,bar.example.com,%/a/bar'
+    required: false
+  newHost:
+    description: 'domain to replace urlsToReplace with. Usually a reverse proxy'
+    required: false
+  rproxyKey:
+    description: 'a basic auth password to use for a reverse proxy'
+    required: false
+  rproxyUser:
+    description: 'a basic auth username to use for a reverse proxy'
+    required: false
+  sshKey:
+    description: 'a base64 encoded SSH key to install on the container'
+    required: false
+  sshKeyName:
+    description: 'Name of the SSH key. Written to /root/.ssh/<sshKeyName>'
+    required: false
+  svDebug:
+    description: 'turn on debug logging'
+    required: false
+outputs:
+  vulns: # id of output
+    description: 'Array of vulnerable packages'
+  # licenses: # id of output
+  #   description: 'Array of license issues'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
